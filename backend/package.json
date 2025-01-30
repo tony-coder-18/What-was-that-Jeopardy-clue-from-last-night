@@ -1,0 +1,22 @@
+{
+  "name": "jeopardy-ai-json-api",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@google-cloud/aiplatform": "^3.34.0",
+    "@google/generative-ai": "^0.21.0",
+    "@pinecone-database/pinecone": "^4.1.0",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security"
+  }
+}
