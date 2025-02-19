@@ -30,7 +30,7 @@ export default function Home() {
 
       setLoading(false);
       const json = await response.json();
-      setClueAnswer(json.answers[getRandomIndex(3)].content);
+      setClueAnswer(json.clueanswer); // maybe the property name will change
       
     } catch (error) {
       console.error(error.message);

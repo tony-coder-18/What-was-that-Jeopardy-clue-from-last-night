@@ -8,9 +8,11 @@ export default function Button(props) {
         onClick={props.onClick}
         id={props.id}
         type={props.type}
-        className={`bg-blue-900 rounded-xl text-gray-50 py-4 px-8`}>
-          {props.loading && <span>Loading Icon </span> }
-          {props.text}
+        className={`bg-blue-900 rounded-xl text-gray-50 py-4 px-8`}
+        disabled={props.loading ? true : false}>
+          <span>
+            {props.loading ? "loading your clue" : props.text}
+          </span>
       </button>
     );
   }
