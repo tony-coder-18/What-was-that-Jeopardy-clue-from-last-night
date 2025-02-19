@@ -16,7 +16,8 @@ export default function Home() {
 
   const fetchAnswer = async (clueSearch) => {
     setLoading(true);
-    const url = `http://localhost:3000/?search=${clueSearch}`;
+    const url = `https://ys2558-3000.csb.app/?search=${clueSearch}`;
+    // https://ys2558-3000.csb.app/
     try {
       const response = await fetch(url, {
         headers: {

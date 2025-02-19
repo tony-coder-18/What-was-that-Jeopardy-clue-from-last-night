@@ -1,24 +1,26 @@
 import express from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 
 // Initialize Express app
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Gemini API configuration
 const GEMINI_API_KEY = process.env.GEMINI_AI; // Replace with your Gemini API key
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
 
 // Define the search endpoint
-app.post('/search', async (req, res) => {
-  const userQuery = req.body.query;
-
+app.get('/', async (req, res) => {
+  const userQuery = req.query;
   try {
-    const response = await searchClue(userQuery);
-    res.json({ clue: response });
+    // const response = await searchClue(userQuery);
+    const response = userQuery; // just for testing
+    res.json({ clueanswer: response });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Failed to process the query' });
