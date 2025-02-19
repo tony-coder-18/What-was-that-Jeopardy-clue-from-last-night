@@ -14,9 +14,9 @@ export default function Home() {
     return Math.floor((Math.random() * maximunIndex));
   };
 
-  const fetchAnswer = async () => {
+  const fetchAnswer = async (clueSearch) => {
     setLoading(true);
-    const url = "http://localhost:3000/";
+    const url = `http://localhost:3000/?search=${clueSearch}`;
     try {
       const response = await fetch(url, {
         headers: {
@@ -43,7 +43,7 @@ export default function Home() {
 
   const handleClueSubmit = (event) => {
     event.preventDefault();
-    fetchAnswer();
+    fetchAnswer(clueSearch);
   };
 
   return (
