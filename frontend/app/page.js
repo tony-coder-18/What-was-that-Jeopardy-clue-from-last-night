@@ -15,6 +15,7 @@ export default function Home() {
   };
 
   const fetchAnswer = async (clueSearch) => {
+  const fetchAnswer = async (clueSearch) => {
     setLoading(true);
     const url = `http://localhost:3000/search?search=${clueSearch}`;
     try {
@@ -43,6 +44,7 @@ export default function Home() {
 
   const handleClueSubmit = (event) => {
     event.preventDefault();
+    fetchAnswer(clueSearch);
     fetchAnswer(clueSearch);
   };
 
