@@ -8,7 +8,7 @@ export default function Answer(props) {
         className={`bg-gray-300 rounded-xl text-gray-900 py-6 px-4 gap-8 flex flex-col gap-8`}>
         <section className="flex flex-col gap-2">
             <p className="text-sm font-bold">
-                The Clue is:
+                The Clue you're looking for is:
             </p>
             <p className="text-lg">
                 {props.text}

@@ -1,24 +1,42 @@
 import express from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
+import cors from 'cors';
+import bodyParser from 'body-parser';
 
 dotenv.config();
 
+const corsOptions = {
+  origin: 'http://localhost:3001/',//(https://your-client-app.com)
+  // origin: '*',//(https://your-client-app.com)
+  optionsSuccessStatus: 200
+};
+
 // Initialize Express app
 const app = express();
-app.use(express.json());
+// app.use(cors(corsOptions));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cors());
 
 // Gemini API configuration
 const GEMINI_API_KEY = process.env.GEMINI_AI; // Replace with your Gemini API key
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
 
 // Define the search endpoint
-app.post('/search', async (req, res) => {
-  const userQuery = req.body.query;
-
+app.get('/search', async (req, res) => {
+  const userQuery = req.query;
   try {
-    const response = await searchClue(userQuery);
-    res.json({ clue: response });
+    // console.log(req.query.search);
+    // const response = await searchClue(userQuery.query);
+    // res.json({ clue: response });
+    let answerFromAI = await searchClue(req.query.search);
+
+    console.log(answerFromAI);
+    res.json({
+      clueAnswer: answerFromAI
+    })
+    // res.send(req.query.search);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Failed to process the query' });
@@ -58,15 +76,11 @@ const getClues = () => {
         { id: 29, text: "Modern medicine says broken heart syndrome can be triggered by grief & may lead to this, congestion from fluid in the lungs" },
         { id: 30, text: "'New York, concrete jungle where dreams are made of' this song Jay-Z" }
       ];
-
       return clues.map(clue => clue.text).join(', ');
 }
 
 // Function to search for a clue using Gemini REST API
 async function searchClue(userQuery) {
-
-    
-
   const requestBody = {
     contents: [
       {

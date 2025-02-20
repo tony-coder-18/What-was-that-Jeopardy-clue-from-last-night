@@ -14,14 +14,13 @@ export default function Home() {
     return Math.floor((Math.random() * maximunIndex));
   };
 
-  const fetchAnswer = async () => {
+  const fetchAnswer = async (clueSearch) => {
     setLoading(true);
-    const url = "http://localhost:3000/";
+    const url = `http://localhost:3000/search?search=${clueSearch}`;
     try {
       const response = await fetch(url, {
-        headers: {
-          "Content-Type": "application/json"
-        }
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
       });
 
       if (!response.ok) {
@@ -30,8 +29,9 @@ export default function Home() {
 
       setLoading(false);
       const json = await response.json();
-      setClueAnswer(json.answers[getRandomIndex(3)].content);
-      
+      console.log(json.clueAnswer);
+      setClueAnswer(json.clueAnswer);
+      // setClueAnswer(json.answers[getRandomIndex(3)].content);
     } catch (error) {
       console.error(error.message);
     }
@@ -43,7 +43,7 @@ export default function Home() {
 
   const handleClueSubmit = (event) => {
     event.preventDefault();
-    fetchAnswer();
+    fetchAnswer(clueSearch);
   };
 
   return (
