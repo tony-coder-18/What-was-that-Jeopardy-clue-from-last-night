@@ -15,7 +15,6 @@ export default function Home() {
   };
 
   const fetchAnswer = async (clueSearch) => {
-  const fetchAnswer = async (clueSearch) => {
     setLoading(true);
     const url = `http://localhost:3000/search?search=${clueSearch}`;
     try {
@@ -30,9 +29,7 @@ export default function Home() {
 
       setLoading(false);
       const json = await response.json();
-      console.log(json.clueAnswer);
       setClueAnswer(json.clueAnswer);
-      // setClueAnswer(json.answers[getRandomIndex(3)].content);
     } catch (error) {
       console.error(error.message);
     }
@@ -54,7 +51,7 @@ export default function Home() {
         { !clueAnswer && <section  className="contents">
           <h1 className="flex flex-col gap-4 py-2 text-center">
             <span className="text-xl">
-              What was that question from last
+              What was that clue from last
             </span>
             <span className="font-bold text-6xl">
               Jeopardy!
