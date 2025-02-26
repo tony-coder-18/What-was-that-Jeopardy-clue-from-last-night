@@ -16,7 +16,7 @@ export default function Home() {
 
   const fetchAnswer = async (clueSearch) => {
     setLoading(true);
-    const url = `http://localhost:3000/search?search=${clueSearch}`;
+    const url = `https://jeopardy-clue-finder-backend.onrender.com/search?search=${clueSearch}`;
     try {
       const response = await fetch(url, {
         // method: 'GET',
