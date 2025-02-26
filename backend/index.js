@@ -21,8 +21,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Gemini API configuration
-// const GEMINI_API_KEY = process.env.GEMINI_AI; // Replace with your Gemini API key
-const GEMINI_API_KEY = "AIzaSyBM8nPNEgEqG49Y-DT-OMa1aUGRLwKsPHQ";
+const GEMINI_API_KEY = process.env.GEMINI_AI; // Replace with your Gemini API key
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
 
 app.get("/", (req, res) => res.send("Express on Vercel"));
