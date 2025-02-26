@@ -19,8 +19,8 @@ export default function Home() {
     const url = `http://localhost:3000/search?search=${clueSearch}`;
     try {
       const response = await fetch(url, {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'},
+        // method: 'GET',
+        // headers: {'Content-Type': 'application/json'},
       });
 
       if (!response.ok) {

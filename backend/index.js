@@ -3,6 +3,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
 
@@ -20,8 +21,11 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Gemini API configuration
-const GEMINI_API_KEY = process.env.GEMINI_AI; // Replace with your Gemini API key
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+// const GEMINI_API_KEY = process.env.GEMINI_AI; // Replace with your Gemini API key
+const GEMINI_API_KEY = "AIzaSyBM8nPNEgEqG49Y-DT-OMa1aUGRLwKsPHQ";
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 // Define the search endpoint
 app.get('/search', async (req, res) => {
@@ -126,13 +130,24 @@ async function searchClue(userQuery) {
     ],
   };
 
-  const response = await axios.post(GEMINI_API_URL, requestBody, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  // const response = await axios.post(GEMINI_API_URL, requestBody, {
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  // });
 
-  return response.data.candidates[0].content.parts[0].text;
+  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+  const prompt = requestBody.contents[0].parts[0].text;
+
+  const result = await model.generateContent(prompt);
+
+  console.log(result.response.text());
+
+  // return response.data.candidates[0].content.parts[0].text;
+  return result.response.text();
 }
 
 // Run the app
@@ -140,3 +155,6 @@ const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+// export default app;
+// module.exports = app;
