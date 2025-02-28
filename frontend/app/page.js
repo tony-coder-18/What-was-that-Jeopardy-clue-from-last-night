@@ -49,7 +49,7 @@ export default function Home() {
     <div className="flex-1">
       <main className="flex flex-col gap-20 px-8">
         { !clueAnswer && <section  className="contents">
-          <h1 className="flex flex-col gap-4 py-2 text-center">
+          <h1 className="flex flex-col gap-2 py-2 text-center">
             <span className="text-xl">
               What was that clue from last
             </span>
